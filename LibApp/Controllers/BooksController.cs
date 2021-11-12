@@ -31,15 +31,11 @@ namespace LibApp.Controllers
             return Content($"pageIndex={pageIndex} & sortBy={sortBy}");
         }
 
-        //[Route("/books/released/{year:regex(^\\d{{4}}$)}/{month:range(1,12)}")]
-        //public IActionResult ByReleaseDate(int year, int month)
-        //{
-        //    return Content(year + "/" + month);
-        //}
-
+        [Route("/books/released/{year:regex(^\\d{{4}}$)}/{month:range(1,12)}")]
         public IActionResult ByReleaseDate(int year, int month)
         {
-            return Content($"{year}/{month}");
+            return Content(year + "/" + month);
         }
+
     }
 }
