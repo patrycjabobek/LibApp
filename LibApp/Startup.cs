@@ -61,12 +61,12 @@ namespace LibApp
 
             app.UseEndpoints(endpoints =>
             {
-
-                endpoints.MapControllerRoute(
-                name: "BooksByReleaseDate",
-                pattern: "books/released/{year}/{month}",
-                defaults: new { controller = "Books", action = "ByReleaseDate" },
-                constraints: new { year = @"\d{4}", month = @"\d{2}"});
+                //convenction base routing not recommended
+                //endpoints.MapControllerRoute(
+                //name: "BooksByReleaseDate",
+                //pattern: "books/released/{year}/{month}",
+                //defaults: new { controller = "Books", action = "ByReleaseDate" },
+                //constraints: new { year = @"\d{4}", month = @"\d{2}"}); //ograniczenia
 
                 endpoints.MapControllerRoute(
                     name: "default",
