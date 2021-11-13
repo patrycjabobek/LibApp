@@ -792,3 +792,4 @@ C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\B
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Shared\_Navbar.cshtml.g.cs
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Customers\Details.cshtml.g.cs
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Customers\Index.cshtml.g.cs
+C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Books\Details.cshtml.g.cs
