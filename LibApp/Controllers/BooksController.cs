@@ -26,19 +26,12 @@ namespace LibApp.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Index(int? pageIndex, string sortBy)
+        public IActionResult Index()
         {
-            if (!pageIndex.HasValue)
-            {
-                pageIndex = 1;
-            }
+            var books = GetBooks();
 
-            if (String.IsNullOrEmpty(sortBy))
-            {
-                sortBy = "Name";
-            }
+            return View(books);
 
-            return Content($"pageIndex={pageIndex} & sortBy={sortBy}");
         }
 
         [Route("/books/released/{year:regex(^\\d{{4}}$)}/{month:range(1,12)}")]
@@ -47,5 +40,13 @@ namespace LibApp.Controllers
             return Content(year + "/" + month);
         }
 
+        public  IEnumerable<Book> GetBooks()
+        {
+            return new List<Book>
+            {
+                new Book {Id = 1, Name = "Hamlet"},
+                new Book {Id = 2, Name = "Lalka"}
+            };
+        }
     }
 }

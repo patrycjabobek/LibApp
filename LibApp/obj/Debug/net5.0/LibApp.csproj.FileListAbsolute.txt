@@ -788,3 +788,5 @@ C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\LibApp.dll
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\ref\LibApp.dll
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\LibApp.pdb
 C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\LibApp.genruntimeconfig.cache
+C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Books\Index.cshtml.g.cs
+C:\Users\Lenovo\source\repos\LibAppProject\LibApp\obj\Debug\net5.0\Razor\Views\Shared\_Navbar.cshtml.g.cs
