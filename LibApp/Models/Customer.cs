@@ -17,5 +17,6 @@ namespace LibApp.Models
 
         public MembershipType  MembershipType {get; set;}
         public byte MembershhipTypeId { get; set; }
+        public DateTime? Birthdate { get; set; }
     }
 }
