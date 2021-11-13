@@ -7,7 +7,7 @@ namespace LibApp.Models
 {
    
 
-    public class MemberShipTypecs
+    public class MembershipType
     {
         public byte Id { get; set; }
         public short SignUpFee { get; set; }
