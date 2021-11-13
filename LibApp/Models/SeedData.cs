@@ -50,10 +50,9 @@ namespace LibApp.Models
                         DiscountRate = 20
                     });
 
-                context.SaveChanges()
+                context.SaveChanges();
             };
         }
 
     }
 }
-x

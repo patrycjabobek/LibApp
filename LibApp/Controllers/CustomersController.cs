@@ -1,5 +1,7 @@
-﻿using LibApp.Models;
+﻿using LibApp.Data;
+using LibApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,25 @@ namespace LibApp.Controllers
 {
     public class CustomersController : Controller
     {
+        private readonly ApplicationDbContext _context;
         
+        public CustomersController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public ViewResult Index()
         {
-            var customers = GetCustomers();
+            var customers =  _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList();
+
             return View(customers);
         }
 
         public IActionResult Details(int id)
         {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
             {
