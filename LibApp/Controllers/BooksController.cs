@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LibApp.Models;
 using LibApp.ViewModels;
 using LibApp.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace LibApp.Controllers
 {
@@ -13,65 +14,91 @@ namespace LibApp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext contex)
         {
-            _context = context;
-        }
-
-        public IActionResult Random()
-        {
-            var firstBook = new Book() { Name = "English dictionary" };
-
-            var customers = new List<Customer>
-            {
-                new Customer{Name = "Customer 1" },
-                new Customer{Name = "Customer 2" }
-            };
-
-            var viewModel = new RandomBookViewModel
-            {
-                Book = firstBook,
-                Customers = customers
-            };
-            return View(viewModel);
+            _context = contex;
         }
 
         public IActionResult Index()
         {
             var books = _context.Books
-                .Include(b => b.Genre);
+                .Include(b => b.Genre)
+                .ToList();
 
             return View(books);
-
         }
 
         public IActionResult Details(int id)
         {
             var book = _context.Books
                 .Include(b => b.Genre)
-                .SingleOrDefault(c => c.Id == id);
+                .SingleOrDefault(b => b.Id == id);
 
             if (book == null)
             {
-                return Content("User Not Found ");
+                return Content("Book not found");
             }
 
             return View(book);
         }
 
-        [Route("/books/released/{year:regex(^\\d{{4}}$)}/{month:range(1,12)}")]
-        public IActionResult ByReleaseDate(int year, int month)
+        public IActionResult Edit(int id)
         {
-            return Content(year + "/" + month);
+            var book = _context.Books.SingleOrDefault(b => b.Id == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new BookFormViewModel
+            {
+                Book = book,
+                Genres = _context.Genre.ToList()
+            };
+
+            return View("BookForm", viewModel);
         }
 
-        public  IEnumerable<Book> GetBooks()
+        public IActionResult New()
         {
-            return new List<Book>
+            var genres = _context.Genre.ToList();
+            var viewModel = new BookFormViewModel
             {
-                new Book {Id = 1, Name = "Hamlet"},
-                new Book {Id = 2, Name = "Lalka"}
+                Genres = genres
             };
+
+            return View("BookForm", viewModel);
         }
+
+        public IActionResult Save(Book book)
+        {
+            if (book.Id == 0)
+            {
+                book.DateAdded = DateTime.Now;
+                _context.Books.Add(book);
+            }
+            else
+            {
+                var bookInDb = _context.Books.SingleOrDefault(b => b.Id == book.Id);
+                bookInDb.Name = book.Name;
+                bookInDb.AuthorName = book.AuthorName;
+                bookInDb.ReleaseDate = book.ReleaseDate;
+                bookInDb.GenreId = book.GenreId;
+                bookInDb.NumberInStock = book.NumberInStock;
+            }
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return RedirectToAction("Index", "Books");
+        }
+
+
     }
 }
